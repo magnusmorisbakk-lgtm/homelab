@@ -19,7 +19,7 @@ The homelab is used to host personal services, game servers, monitoring and loca
 | **Game servers** | Valheim | Dedicated game server |
 | **Game servers** | Minecraft | Dedicated game server |
 
-
+---
 
 ## Overview
 
@@ -53,8 +53,9 @@ Persistent application data is stored outside the containers, allowing container
 
 ## Architecture
 
-*Note for self: create visualization of architecture*
+![Architecture](docs/diagrams/architecture.svg)
 
+---
 ## Workflow
 Management of stacks is handled through `homelab.sh`, which provides a CLI for simple operation of the individual service stacks. Each stack is configured to be independently deployable thorough its own Docker Compose configuration.
 
@@ -68,6 +69,7 @@ AI workloads run locally on the server's GPU. MoriScribe utilizes Whisper for sp
 
 Networking uses the local network for standard service acces, while Tailscale provides remote access without directly exposing management services to the public.
 
+---
 ## Service stack documentation
 ### Monitoring
 
@@ -80,6 +82,7 @@ Networking uses the local network for standard service acces, while Tailscale pr
 
 ### Game Servers
 
+---
 ## Management
 `homelab.sh` provides a simple interface for managing the different service stacks.
 ```bash
@@ -87,6 +90,7 @@ Networking uses the local network for standard service acces, while Tailscale pr
 ```
 This makes service management consistent and simple without requiring all services to be defined in a single Docker Compose.
 
+---
 ## System Hardware
 
 | Component | Specification |
