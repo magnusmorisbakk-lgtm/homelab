@@ -11,7 +11,8 @@
 | Drive Identifier | Capacity | Type | Filesystem | Mount Point | Primary Purpose |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `/dev/nvme0n1` | ~500 GB | NVMe SSD | `ext4` | `/` | OS, Docker, active application data|
-| `/dev/sda` | 4.0 TB | Mechanical HDD | `ext4` | `/mnt/hdd` | Bulk storage, persistent data and backups |
+| `dev/sda`| ~500 GB | SATA SSD | `ext4` | `/mnt/ssd` | Game servers, latency sensitive data |
+| `/dev/sdb` | 4.0 TB | Mechanical HDD | `ext4` | `/mnt/hdd` | Bulk storage, persistent data and backups |
 
 The storage layout is designed around the capabilities of the two drives and the needs of the services.
 
@@ -29,7 +30,24 @@ Docker remains on the SSD, since it provides faster access to container images a
 
 Certain services may have their data stored seperately on the HDD, where the workload has a low demand and benefits from capacity.
 
+
+## SATA SSD
 ---
+Mounted at:
+`/mnt/ssd`
+Used for workloads that benefit from higher IOPS and lower latency.
+
+### Directory structure
+
+```text
+/mnt/ssd/
+└── docker-volumes/   
+    └── game-servers/
+        ├── minecraft-all-the-mods/
+        └── valheim/
+```
+
+
 
 ## 4 TB HDD 
 ---
@@ -42,10 +60,7 @@ Primarily used for bulk storage, static service data and backups.
 
 ```text
 /mnt/hdd/
-└── docker-volumes/                
-    ├── game-servers/              
-    │   ├── minecraft/             
-    │   └── valheim/               
+└── docker-volumes/                                      
     │       
     ├── monitoring/                
     │   ├── grafana/              
@@ -66,16 +81,15 @@ This ensures that game server worlds, Grafana configuration and AI models remain
 ---
 The general storage strategy can be represented as:
 ```text
-                           [ Ubuntu Server ]
-                                   │
-                 ┌─────────────────┴─────────────────┐
-                 │                                   │
-           [ NVMe SSD ]                         [ 4 TB HDD ]
-                 │                                   │
-        ┌────────┴────────┐                 ┌────────┴────────┐
-        │                 │                 │                 │
-[ Ubuntu System ]   [  Docker  ]      [   Static   ]    [ Backups / ]
-[    (OS)       ]   [  Runtime ]      [service data]    [ Bulk data ]
+                       [ Ubuntu Server ]
+                               │
+         ┌─────────────────────┼─────────────────────┐
+         │                     │                     │
+    [ NVMe SSD ]          [ SATA SSD ]          [  4 TB HDD  ]
+         │                     │                     │
+    [ Ubuntu System ]     [ Game servers ]    [ Persistent data ]
+    [    (OS)       ]                         [  Local Backups  ]
+    [Docker runtime ]                         [   Bulk data     ]    
 ```
 
 ### Design principles

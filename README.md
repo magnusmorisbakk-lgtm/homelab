@@ -94,7 +94,7 @@ This makes service management consistent and simple without requiring all servic
 | **CPU** | Ryzen 5 3600 (6 Cores / 12 Threads) 
 | **Memory** | 32 GB DDR4 |
 | **GPU** | Nvidia RTX 2060 |
-| **Storage** | 512 GB NVMe SSD + 4 TB HDD |
+| **Storage** | 512 GB NVMe SSD + 512 GB SATA SSD + 4 TB HDD |
 | **OS** | Ubuntu Server |
 
 The gpu is primarily used for GPU accelerated AI workloads.
