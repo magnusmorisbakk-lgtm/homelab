@@ -3,100 +3,32 @@
 
 Self hosted infrastructure running on a single Ubuntu Server host.
 
-The homelab is used to host personal services, game servers, monitoring and local AI workloads. Services are deployed as isolated Docker containers and managed through Docker Compose.
+The homelab is used to host personal services, game servers, monitoring and local AI workloads. Services are deployed as separate Docker containers and managed through Docker Compose.
 
 ## Services
 ---
 
-| **Stack** | **Service** | **Purpose** | **Interface / Port ** |
+| **Stack** | **Service** | **Purpose** | **Interface / Port** |
 | :--- | :--- | :--- | :--- |
-| **Monitoring** | Grafana | Metrics visualization and dashboard | `11434:11434`|
+| **Monitoring** | Grafana | Metrics visualization and dashboards | `11434:11434`|
 | **Monitoring** | Prometheus | Metrics collection | `9000:8000`|
 | **Monitoring** | Node Exporter | System metrics | `N/A`|
 | **Monitoring** | Uptime Kuma | Service availability monitoring | `3001:3001` |
 | **MoriScribe (AI)** | Whisper | Local speech to text inference | `9090:9090` |
-| **MoriScribe (AI)** | Ollama | Local LLM interference | `9100:9100` |
+| **MoriScribe (AI)** | Ollama | Local LLM inference | `9100:9100` |
 | **Game servers** | Valheim | Dedicated game server | `2456:2456` & `2457:2457` |
 | **Game servers** | Minecraft | Dedicated game server | `25565:25565` |
 | **Utilities** | Syncthing | Continuous file sync across devices | `8384:8384` |
 
----
 
-## Repository Overview
-
-```text
-.
-├── README.md
-├──services/
-│   ├── moriscribe
-│   │     ├── ollama/
-│   │     └── whisper/           
-│   ├── monitoring/
-│   │       ├── grafana/ 
-│   │       ├── prometheus/
-│   │       ├── node-exporter/
-│   │       └── uptime-kuma/
-│   ├── game-servers/
-│   │         ├── valheim/
-│   │         └── minecraft-all-the-mods/
-|   |
-|   └── utilities/
-|            └── syncthing/
-│
-└── docs/
-    ├── infrastructure-overview.md
-    ├── storage-layout.md
-    ├── tailscale-setup.md
-    ├── ollama.md
-    └── whisper.md
-```
-Each service stack can be managed independently, allowing individual services to be updated and restarted or recreated without affecting other services.
-
-Persistent application data is stored outside the containers, allowing containers to be recreated or updated without losing data such as configurations, databases or AI models.
-
----
 
 ## Architecture
+---
 
 ![Architecture](docs/diagrams/architecture.svg)
 
----
-## Workflow
-Management of stacks is handled through `homelab.sh`, which provides a CLI for simple operation of the individual service stacks. Each stack is configured to be independently deployable thorough its own Docker Compose configuration.
-
-Runtime is provided by Docker. Services are isolated into separate containers and grouped into independent and grouped into independent Compose stacks based on theis specific purpose. Docker compose files remain seperate for maintainability.
-
-Storage seperates persisten service data from their container filesystems. This allows containers to be recreated or updated without data loss.
-
-Monitoring is provided by Prometheus, Grafana, Node Exporter and Uptime Kuma. Node Exporter exposes host metrics, Prometheus collects the metrics, Grafana provied visualization of the metrics and Uptime Kuma monitors availability of services.
-
-AI workloads run locally on the server's GPU. MoriScribe utilizes Whisper for speech to text  transcription and Ollama for local LLM inference and transcript summarization.
-
-Networking uses the local network for standard service acces, while Tailscale provides remote access without directly exposing management services to the public.
-
-<!-- 
-## Service stack documentation
-### Monitoring
-
-- [Monitoring Architecture](docs/monitoring.md)
-
-### MoriScribe
-
-- [Whisper](docs/whisper.md)
-- [Ollama](docs/ollama.md)
-
-### Game Servers
--->
----
-## Management
-`homelab.sh` provides a simple interface for managing the different service stacks.
-```bash
-./homelab.sh
-```
-This makes service management consistent and simple without requiring all services to be defined in a single Docker Compose.
-
----
 ## System Hardware
+---
 
 | Component | Specification |
 | :--- | :--- |
@@ -106,7 +38,69 @@ This makes service management consistent and simple without requiring all servic
 | **Storage** | 512 GB NVMe SSD + 512 GB SATA SSD + 4 TB HDD |
 | **OS** | Ubuntu Server |
 
-The gpu is primarily used for GPU accelerated AI workloads.
+The GPU is primarily used for GPU accelerated AI workloads.
+
+## Storage
+---
+Storage is distributed across NVMe, SATA SSD, and HDD based on workload and requirements.
+* **NVMe SSD** - OS, Docker Runtime and active system data.
+* **SATA SSD** - Latency sensitive workload, such as game servers.
+* **HDD** - Bulk storage, persistent service data and backups.
+
+Game server backups are stored separately from active game data.
+
+See [Storage layout](docs/storage-layout.md) for complete storage structure.
+
+
+## Networking
+---
+The server provides services over the local network.
+
+[Tailscale](docs/networking/tailscale-setup.md) is used for remote access, allowing the infrastructure to be accessed without directly exposing management interfaces to the public.
+
+## Repository Overview
+---
+
+```text
+.
+├── README.md
+├──services/           # Docker Compose configurations
+│   ├── moriscribe/
+│   │     ├── ollama/
+│   │     └── whisper/      
+|   |     
+│   ├── monitoring/
+│   │       ├── grafana/ 
+│   │       ├── prometheus/
+│   │       ├── node-exporter/
+│   │       └── uptime-kuma/
+|   |
+│   ├── game-servers/
+│   │         ├── valheim/
+│   │         └── minecraft-all-the-mods/
+|   |
+|   └── utilities/
+|            └── syncthing/
+│
+└── docs/              # Infrastructure documentation
+    ├── diagrams/
+    ├── game-servers/
+    ├── monitoring/
+    ├── moriscribe/
+    ├── networking/
+    ├── utilities/
+    └── storage-layout.md
+```
+Each service stack can be managed independently, allowing individual services to be updated and restarted or recreated without affecting other services.
+
+## Management
+---
+`homelab.sh` provides a simple interface for managing the different service stacks.
+```bash
+./homelab.sh
+```
+This makes service management consistent and simple without requiring all services to be defined in a single Docker Compose.
+
 
 
 
