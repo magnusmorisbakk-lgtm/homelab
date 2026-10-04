@@ -5,13 +5,15 @@ Self hosted infrastructure running on a single Ubuntu Server host.
 
 The homelab is used to host personal services, game servers, monitoring and local AI workloads. Services are deployed as separate Docker containers and managed through Docker Compose.
 
+The infrastructure also serves as the backend for [MoriScribe](https://github.com/magnusmorisbakk-lgtm/MoriScribe). Local system audio transcription and AI summarization. MoriScribe offloads speech to text and LLM inference to containerized services running on the GPU.
+
 ## Services
 ---
 
 | **Stack** | **Service** | **Purpose** | **Interface / Port** |
 | :--- | :--- | :--- | :--- |
 | **Monitoring** | Grafana | Metrics visualization and dashboards | `3000:3000`|
-| **Monitoring** | Prometheus | Metrics collection | `9000:9090`|
+| **Monitoring** | Prometheus | Metrics collection | `9090:9090`|
 | **Monitoring** | Node Exporter | System metrics | `N/A`|
 | **Monitoring** | Uptime Kuma | Service availability monitoring | `3001:3001` |
 | **MoriScribe (AI)** | Whisper | Local speech to text inference | `9000:8000` |
