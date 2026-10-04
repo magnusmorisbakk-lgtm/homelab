@@ -18,6 +18,7 @@ The homelab is used to host personal services, game servers, monitoring and loca
 | **MoriScribe (AI)** | Ollama | Local LLM interference |
 | **Game servers** | Valheim | Dedicated game server |
 | **Game servers** | Minecraft | Dedicated game server |
+| **Utilities** | Syncthing | Continuous file sync across devices |
 
 ---
 
@@ -35,9 +36,13 @@ The homelab is used to host personal services, game servers, monitoring and loca
 │   │       ├── prometheus/
 │   │       ├── node-exporter/
 │   │       └── uptime-kuma/
-│   └── game-servers/
-│             ├── valheim/
-│             └── minecraft-all-the-mods/
+│   ├── game-servers/
+│   │         ├── valheim/
+│   │         └── minecraft-all-the-mods/
+|   |
+|   └── utilities/
+|            └── syncthing/
+│
 └── docs/
     ├── infrastructure-overview.md
     ├── storage-layout.md
@@ -69,7 +74,7 @@ AI workloads run locally on the server's GPU. MoriScribe utilizes Whisper for sp
 
 Networking uses the local network for standard service acces, while Tailscale provides remote access without directly exposing management services to the public.
 
----
+<!-- 
 ## Service stack documentation
 ### Monitoring
 
@@ -81,7 +86,7 @@ Networking uses the local network for standard service acces, while Tailscale pr
 - [Ollama](docs/ollama.md)
 
 ### Game Servers
-
+-->
 ---
 ## Management
 `homelab.sh` provides a simple interface for managing the different service stacks.
