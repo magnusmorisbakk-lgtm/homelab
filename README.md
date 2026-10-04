@@ -10,12 +10,12 @@ The homelab is used to host personal services, game servers, monitoring and loca
 
 | **Stack** | **Service** | **Purpose** | **Interface / Port** |
 | :--- | :--- | :--- | :--- |
-| **Monitoring** | Grafana | Metrics visualization and dashboards | `11434:11434`|
-| **Monitoring** | Prometheus | Metrics collection | `9000:8000`|
+| **Monitoring** | Grafana | Metrics visualization and dashboards | `3000:3000`|
+| **Monitoring** | Prometheus | Metrics collection | `9000:9090`|
 | **Monitoring** | Node Exporter | System metrics | `N/A`|
 | **Monitoring** | Uptime Kuma | Service availability monitoring | `3001:3001` |
-| **MoriScribe (AI)** | Whisper | Local speech to text inference | `9090:9090` |
-| **MoriScribe (AI)** | Ollama | Local LLM inference | `9100:9100` |
+| **MoriScribe (AI)** | Whisper | Local speech to text inference | `9000:8000` |
+| **MoriScribe (AI)** | Ollama | Local LLM inference | `11434:11434` |
 | **Game servers** | Valheim | Dedicated game server | `2456:2456` & `2457:2457` |
 | **Game servers** | Minecraft | Dedicated game server | `25565:25565` |
 | **Utilities** | Syncthing | Continuous file sync across devices | `8384:8384` |
@@ -32,7 +32,7 @@ The homelab is used to host personal services, game servers, monitoring and loca
 
 | Component | Specification |
 | :--- | :--- |
-| **CPU** | Ryzen 5 3600 (6 Cores / 12 Threads) 
+| **CPU** | Ryzen 5 3600 (6 Cores / 12 Threads) |
 | **Memory** | 32 GB DDR4 |
 | **GPU** | Nvidia RTX 2060 |
 | **Storage** | 512 GB NVMe SSD + 512 GB SATA SSD + 4 TB HDD |
