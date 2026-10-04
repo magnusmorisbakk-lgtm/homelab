@@ -8,12 +8,12 @@ The homelab is used to host personal services, game servers, monitoring and loca
 ## Services
 ---
 
-| **Stack** | **Service** | **Purpose** | **Port** |
+| **Stack** | **Service** | **Purpose** | **Interface / Port ** |
 | :--- | :--- | :--- | :--- |
 | **Monitoring** | Grafana | Metrics visualization and dashboard | `11434:11434`|
 | **Monitoring** | Prometheus | Metrics collection | `9000:8000`|
-| **Monitoring** | Node Exporter | System metrics | `3001:3001`|
-| **Monitoring** | Uptime Kuma | Service availability monitoring | `3000:3000` |
+| **Monitoring** | Node Exporter | System metrics | `N/A`|
+| **Monitoring** | Uptime Kuma | Service availability monitoring | `3001:3001` |
 | **MoriScribe (AI)** | Whisper | Local speech to text inference | `9090:9090` |
 | **MoriScribe (AI)** | Ollama | Local LLM interference | `9100:9100` |
 | **Game servers** | Valheim | Dedicated game server | `2456:2456` & `2457:2457` |
