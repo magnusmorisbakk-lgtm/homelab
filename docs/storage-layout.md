@@ -1,22 +1,20 @@
 
 # Server Storage Architecture & Layout
 
-**Last Updated:** 25. September 2026  
+**Last Updated:** 4. October 2026  
 **System:** Ubuntu Server  
-**Hostname:** `YOUR_HOSTNAME`  
-
 
 ## Hardware & Drive Overview
 ---
 | Drive Identifier | Capacity | Type | Filesystem | Mount Point | Primary Purpose |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | `/dev/nvme0n1` | ~500 GB | NVMe SSD | `ext4` | `/` | OS, Docker, active application data|
-| `dev/sda`| ~500 GB | SATA SSD | `ext4` | `/mnt/ssd` | Game servers, latency sensitive data |
+| `/dev/sda`| ~500 GB | SATA SSD | `ext4` | `/mnt/ssd` | Game servers, latency sensitive data |
 | `/dev/sdb` | 4.0 TB | Mechanical HDD | `ext4` | `/mnt/hdd` | Bulk storage, persistent data and backups |
 
-The storage layout is designed around the capabilities of the two drives and the needs of the services.
+The storage layout is designed around the capabilities of the three drives and the needs of the services.
 
-The NVMe is used for the OS, Docker data, and workloads that require or benefit from faster storage. The HDD is used for larger datasets and static service data where capacity is more important than performance.
+The NVMe is used for the OS and Docker Runtime.The SATA SSD is used for  workloads that require or benefit from faster storage. The HDD is used for larger datasets and static service data where capacity is more important than performance.
 
 
 ## NVMe SSD 
@@ -56,22 +54,25 @@ Mounted at:
 
 Primarily used for bulk storage, static service data and backups.
 
-### Directory Structure
+### Directory Structure HDD
 
 ```text
 /mnt/hdd/
-└── docker-volumes/                                      
-    │       
-    ├── monitoring/                
-    │   ├── grafana/              
-    │   ├── prometheus/           
-    │   └── uptime-kuma/           
-    │
-    └── moriscribe/               
-        ├── ollama/                       
-        └── whisper/               
-    
+├── docker-volumes/                                      
+|   │       
+|   ├── monitoring/                
+|   │   ├── grafana/              
+|   │   ├── prometheus/           
+|   │   └── uptime-kuma/           
+|   │
+|   └── moriscribe/               
+|       ├── ollama/                       
+|       └── whisper/               
+|
+└── backups/
+        └── minecract-all-the-mods/
 ```
+
 
 The directories under `docker-volumes/` contain data that must persist outside of the containers themselves.
 
