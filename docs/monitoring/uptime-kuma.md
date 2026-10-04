@@ -44,6 +44,10 @@ Utilizes **HTTP(s)** monitors to verify that the application layer is actively r
 | **Ollama API** | HTTP(s) | `http://YOUR_LOCAL_IP:11434/api/tags` | `200-299` |
 | **Whisper STT** | HTTP(s) | `http://YOUR_LOCAL_IP:9000/docs` | `200-299` |
 | **Valheim Server** | Docker Container | Container Name: valheim-server | | Container Running `UP` |
+| **Grafana** | Docker Container | Container Name: grafana | Container Running `UP` |
+| **Prometheus** | Docker Container | Container Name: prometheus | Container Running `UP` |
+| **Node Exporter** | Docker Container | Container Name: node_exporter | Container Running `UP` |
+| **Syncthing** | Docker Container | Container Name: syncthing | Container Running `UP` |
 
 **Global Monitor Settings:**
 
