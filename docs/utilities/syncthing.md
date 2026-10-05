@@ -4,9 +4,9 @@
 |----------|-------|
 | **Service** | Syncthing |
 | **Host Path** | `~/services/syncthing/docker-compose.yml` |
-| **Web UI** | `http://YOUR_LOCAL_IP:8384` |
 | **Container Name** | `syncthing` |
-| **Hostname** | `my-syncthing` |
+
+Note: Syncthing does not provide backups for synchronized folders. It only synchronizes the contents of folder between devices. Changes, deletions, or corruption may therefore affect the other devices as well.
 
 ---
 
