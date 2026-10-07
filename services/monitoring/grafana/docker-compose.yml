@@ -6,4 +6,4 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - /mnt/hdd/docker-volumes/monitoring/data/grafana  # Mount data on HDD
+      - /mnt/hdd/docker-volumes/monitoring/grafana:/var/lib/grafana  # Mount data on HDD
